@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/database.ts",
+    "build": "bun build --target=bun ./src/* --outdir ./dist --minify",
+    "start": "bun run --watch dist/src/database.js"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^0.7.0",
+    "@elysiajs/static": "^0.7.1",
+    "adm-zip": "^0.5.10",
+    "elysia": "latest",
+    "exceljs": "^4.3.0",
+    "ioredis": "^5.3.2",
+    "mysql2": "^3.6.1",
+    "node-schedule": "^2.1.1",
+    "nodemailer": "^6.9.5",
+    "redis": "^4.6.10"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.11",
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
