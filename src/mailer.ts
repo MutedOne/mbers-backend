@@ -4,7 +4,7 @@ var transporter = nodemailer.createTransport({
     host:'smtp.gmail.com',
     auth: {
       user: "delikado2023@gmail.com",
-      pass: 'oblfcsysasyabxmj'
+      pass: Bun.env.MAILPASSWORD
     }
   });
 

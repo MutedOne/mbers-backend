@@ -2,11 +2,12 @@
 
 
 import mysql from 'mysql2/promise'
+
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'taskmanagement',
-    password: 'My7Pass@Word_9_8A_zE',
+    host: Bun.env.HOST,
+    user: Bun.env.USERDB,
+    database:  Bun.env.DATABASE,
+    password: Bun.env.PASSWORD,
     waitForConnections: true,
     connectionLimit: 10,
     maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
@@ -14,7 +15,6 @@ const db = mysql.createPool({
     queueLimit: 0,
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
-    
   });
 export{
     db

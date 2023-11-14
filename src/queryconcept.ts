@@ -6,7 +6,8 @@ const redisClient = createClient();
 redisClient
 .on('error', err => console.log('Redis Client Error', err))
 .connect();
-async function querycache(cachekey,query,queryparam){
+async function querycache(cachekey:string,query:string,queryparam:any[]){
+  
   if(cachekey ==''){
    return queryAll(query,queryparam)
   }else{
@@ -26,8 +27,22 @@ async function querycache(cachekey,query,queryparam){
     }
   }
 }
+async function exportCache(cachekey:string,result:string){
+  
+  const value = await redisClient.get(cachekey);
+     
+  if(value){
+      return JSON.parse(value)
+  }else{
 
-async function deleteKeysByPattern(pattern) {
+      await redisClient.set(cachekey,JSON.stringify(await result) );
+    
+      return result
+  }
+}
+
+
+async function deleteKeysByPattern(pattern:string) {
 
   const redis = new Redis(); // Connect to your Redis server
 
@@ -56,48 +71,19 @@ stream.on('error', function(err){
 })
 }
 
-async function logout(){
-  db.end()
-  await redisClient.disconnect();
-}
-async function queryAll(query:string,queryparam){
+// async function logout(){
+//   db.end()
+//   await redisClient.disconnect();
+// }
+async function queryAll(query:string,queryparam:[]){
   
     try{
+      const sql = db.format(query,queryparam)
+      console.log(sql)
       const [rows, fields] =  await db.execute(query,queryparam)
-      // db.end()
-    return rows
-        // return new Promise((resolve, reject) => {
-        //     const results = [];
-       
-             
-        //       db.getConnection((err, con) => {
-        //         if (err) {
-        //           console.error('Error acquiring a database connection:', err);
-        //           return;
-        //         }else{
-        //           con.query(query, { stream: true })
-        //           .stream()
-        //           .on('data', (row) => {
-        //             // Process each row here
-        //             results.push(row);
-        //           })
-        //           .on('end', () => {
-        //             // All rows have been processed
-        //             con.release(); // Release the connection when done
-        //             resolve(results); // Resolve the Promise with the results
-        //           })
-        //           .on('error', (err) => {
-        //             // Handle any errors that occur during streaming
-        //             console.error('Error during stream:', err);
-        //             con.release(); // Make sure to release the connection in case of an error
-        //             reject(err); // Reject the Promise in case of an error
-        //           });
-        //           // con.release();
-        //         }
-          
-        //       })
-                   
-        //   });
+      // console.log(rows)
+       return rows
+     
     }catch(err){
         console.log(err)
     }
@@ -108,5 +94,5 @@ export{
   querycache,
   queryAll,
   deleteKeysByPattern,
-  logout
+  exportCache
 }

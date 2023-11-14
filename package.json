@@ -5,21 +5,28 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/database.ts",
     "build": "bun build --target=bun ./src/* --outdir ./dist --minify",
-    "start": "bun run --watch dist/src/database.js"
+    "preview": "bun run --watch dist/src/database.js"
   },
   "dependencies": {
+    "@elysiajs/cookie": "^0.7.0",
     "@elysiajs/cors": "^0.7.0",
+    "@elysiajs/jwt": "^0.7.0",
     "@elysiajs/static": "^0.7.1",
     "adm-zip": "^0.5.10",
     "elysia": "latest",
+    "elysia-helmet": "^1.0.1",
     "exceljs": "^4.3.0",
     "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "md5": "^2.3.0",
     "mysql2": "^3.6.1",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.5",
     "redis": "^4.6.10"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/md5": "^2.3.5",
     "@types/nodemailer": "^6.4.11",
     "bun-types": "latest"
   },
